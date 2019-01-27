@@ -28,19 +28,25 @@ public class _03_MurderOfCrows {
     private void findTheDiamond() {
     		String s = "";
     		boolean b = false;
-    		while(b = false) {
-    		ArrayList<String> string = theMurder.get(0).getStomachContents();
-    		for(int i = 0; i < theMurder.size(); i ++) {
+    			
+    		ArrayList<String> string;
+    		
+    		for(int j = 0; j < theMurder.size(); j ++) {
+    		
+    		string = theMurder.get(j).getStomachContents();  		
+    		
+    		for(int i = 0; i < string.size(); i ++) {
     			s = string.get(i);
-    			System.out.println(s);
+    			System.out.print(s + " ");
     			if(s.equals("diamond")) {
-    				System.out.println(theMurder.get(i).getName());
-    				System.out.println(i+1 + " Crows Died");
-    				
-    				b = true;
-    				
+    				System.out.println(theMurder.get(j).getName());
+    				System.out.println(j+1 + " Crows Died");
+    				i = string.size()+1;
+    				j = theMurder.size()+1;
     			}
     		}
+    		
+    		System.out.println("");
     		
     		}
         /*
