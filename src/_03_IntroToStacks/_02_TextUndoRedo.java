@@ -1,6 +1,18 @@
 package _03_IntroToStacks;
 
-public class _02_TextUndoRedo {
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.Stack;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+public class _02_TextUndoRedo implements KeyListener{
 	/* 
 	 * Create a JFrame with a JPanel and a JLabel.
 	 * 
@@ -13,6 +25,63 @@ public class _02_TextUndoRedo {
 	 * off the Stack and added back to the JLabel.
 	 * 
 	 * */
+	JFrame Jf;
+	JPanel Jp;
+	JLabel Jl;
 	
+	Stack<String> Letters = new Stack<String>();
+	public static void main(String[] args) {
+		new _02_TextUndoRedo().TextField();
+	}
 	
+	void TextField() {
+		Jf = new JFrame();
+		
+		Jp = new JPanel();
+			
+		Jl = new JLabel();	
+		
+		Jl.setText("Type");
+		
+		Jp.add(Jl);
+		Jf.add(Jp);
+		
+		Jf.setVisible(true);
+		Jf.setTitle("TextTyper");
+		Jf.addKeyListener(this);
+		Jf.setPreferredSize(new Dimension(600, 400));
+		Jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Jf.pack();
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+	
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		
+		String s = Jl.getText();
+		System.out.println("hi");
+	    if(e.getKeyCode() != KeyEvent.VK_BACK_SPACE || e.getKeyCode() != KeyEvent.VK_ENTER) {
+			Jl.setText(s+e.getKeyChar());
+			Jp.add(Jl);
+			Jf.add(Jp);
+			Jf.pack();
+			System.out.println("hi");
+		}else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
+			System.out.print("iiii");
+			Letters.push(s.charAt(s.length()-1)+"");
+			s = s.substring(0, s.length()-2);
+			Jl.setText(s);
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
