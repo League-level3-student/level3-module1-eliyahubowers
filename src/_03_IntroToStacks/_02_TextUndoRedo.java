@@ -63,25 +63,35 @@ public class _02_TextUndoRedo implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		
 		String s = Jl.getText();
-		System.out.println("hi");
-	    if(e.getKeyCode() != KeyEvent.VK_BACK_SPACE || e.getKeyCode() != KeyEvent.VK_ENTER) {
+		String c = "";
+	    if(e.getKeyCode() != KeyEvent.VK_BACK_SPACE && e.getKeyCode() != KeyEvent.VK_ENTER && e.getKeyCode() != KeyEvent.VK_CAPS_LOCK && e.getKeyCode() != KeyEvent.VK_SHIFT) {
 			Jl.setText(s+e.getKeyChar());
 			Jp.add(Jl);
 			Jf.add(Jp);
 			Jf.pack();
 			System.out.println("hi");
 		}else if(e.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
-			System.out.print("iiii");
-			Letters.push(s.charAt(s.length()-1)+"");
-			s = s.substring(0, s.length()-2);
-			Jl.setText(s);
+		    System.out.println("ih");
+			if(s.length() > 0) {
+			    Letters.push(s.charAt(s.length()-1)+"");
+			    c = s.substring(0, s.length()-1);
+			    Jl.setText(c);
+			}
+		}else if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			if(Letters.isEmpty() == false) {
+			    c = Letters.pop();
+			    Jl.setText(s+c);
+			    Jp.add(Jl);
+			    Jf.add(Jp);
+			    Jf.pack();
+			}
+			System.out.println("hii");
 		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 }
