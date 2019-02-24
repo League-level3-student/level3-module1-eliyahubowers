@@ -3,6 +3,8 @@ package _04_HangMan;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
+import java.util.Stack;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -19,14 +21,13 @@ public class HangMan implements KeyListener{
 	
 	int input = 10;
 	
-	ArrayList<String> strings;
+	Stack<String> HangWords;
 	
 	public static void main(String[] args) {
-		new HangMan().joptionPanes();
-		new HangMan().gameScreen();
+		new HangMan().Order();
 	}
 	
-	void gameScreen() {
+	void gameScreen(String s) {
 		f = new JFrame();
 		p = new JPanel();
 		l = new JLabel();
@@ -41,20 +42,56 @@ public class HangMan implements KeyListener{
 		f.addKeyListener(this);
 	}
 	
-	void joptionPanes() {
-		if(jopon == 0) {
-			input = inpuT();
-		}if(input > 0 && input < 51) {
-			jopon = 1;
+	void Order() {
+		int b = 1;
+		while(b == 1) {
+			if(jopon == 0) {
+				input = inpuT();
+			}if(input > 0 && input < 51) {
+				jopon = 1;
+			}if(jopon == 1) {
+				HangWords = new Stack<String>();
+				String s = "";
+				boolean StackIn = false;
+				for(int i = 0; i < input; i++) {
+					while(StackIn == false) {
+						System.out.println("hi");
+					    s = Utilities.readRandomLineFromFile("dictionary.txt");
+					    if(HangWords.contains(s) == false) {
+					        HangWords.push(s);
+					      	StackIn = true;
+					    }
+					}
+				}
+			}if(jopon == 2) {
+				b = 2;
+			}
 		}
-		    
+		System.out.println("got Input");
+		while(b == 2) {
+			for(int i = 0; i < HangWords.size(); i++) {
+				System.out.println(HangWords.elementAt(i));
+			}
+		}
 	}
 	
 	public int inpuT() {
 		int i = 0;
-		String s = JOptionPane.showInputDialog("Please enter a number Between 0 and 50");
-		i = Integer.parseInt(s);
+		String s = "111";
+			while(i < 0||i > 50||s.length() > 2) {
+				try{					
+					s = JOptionPane.showInputDialog("Welcome to HANGMAN \n Please enter a number Between 0 and 50 \n For how many words you would like to guess");
+					i = Integer.parseInt(s);
+					return i;
+				}catch(NumberFormatException e) {
+					error();
+				}
+			}
 		return i;
+	}
+	
+	void error() {
+		JOptionPane.showMessageDialog(null, "please enter a number between 0 & 50");
 	}
 	
 	void winLose() {
