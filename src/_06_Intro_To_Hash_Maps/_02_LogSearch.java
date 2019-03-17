@@ -1,7 +1,11 @@
 package _06_Intro_To_Hash_Maps;
 
+import java.util.HashMap;
 
 public class _02_LogSearch {
+	HashMap<Integer,String> Hm = new HashMap();
+	
+	
   /* 
 	 * Crate a HashMap of Integers for the keys and Strings for the values.
 	 * Create a GUI with three buttons. 

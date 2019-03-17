@@ -28,6 +28,8 @@ public class HangMan implements KeyListener{
 	boolean changeWordInGameScreen = true;
 	boolean doResetGameScreen = true;
 	
+	boolean firstCallGame = true;
+	
 	ArrayList<Boolean> b = new ArrayList();
 	public static void main(String[] args) {
 		new HangMan().Order();
@@ -79,7 +81,7 @@ public class HangMan implements KeyListener{
 		while(loop == 1) {
 			
 			if(jopon == 0) {
-				
+
 				input = inpuT();
 				
 			}if(input > 0 && input < 51) {
@@ -114,8 +116,16 @@ public class HangMan implements KeyListener{
 				jopon = 0;
 				lives = 10;               
 				loop = 2;
+				won = false;
 				
-				gameScreen();
+				if(firstCallGame == true) {
+					gameScreen();
+					firstCallGame = false;
+				}
+				
+				ch = '~';			
+				changeWordInGameScreen = true;
+				doResetGameScreen = true;
 				
 			}
 			
@@ -221,13 +231,15 @@ public class HangMan implements KeyListener{
 			JOptionPane.showMessageDialog(null, ss);
 			int continu = JOptionPane.showConfirmDialog(null, "continuePlaying ?");
 			//cancel = 2 no = 1 yes = 0
+			
 			System.out.println(continu);
 			
 			if(continu == 0) {
 				
-				loop = 1;
-				jopon = 0;
-				
+				s = "";
+				HangWords.clear();
+				new HangMan().Order();
+								
 			}else{
 				
 				System.exit(0);
@@ -264,9 +276,11 @@ public class HangMan implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		char c = e.getKeyChar();
-		ch = c;
-		doResetGameScreen = true;
+		//if(ch == '~') {
+			char c = e.getKeyChar();
+			ch = c;
+			doResetGameScreen = true;
+		//}
 	}
 
 	@Override
