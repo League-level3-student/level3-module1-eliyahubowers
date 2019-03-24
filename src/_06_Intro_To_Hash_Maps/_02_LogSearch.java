@@ -1,11 +1,60 @@
 package _06_Intro_To_Hash_Maps;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class _02_LogSearch {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+public class _02_LogSearch implements ActionListener{
 	HashMap<Integer,String> Hm = new HashMap();
+
+	JFrame jf;
+	JPanel jp;
 	
+	JButton b1;
+	JButton b2;
+	JButton b3;
+	JButton b4;
 	
+	public static void main(String[] args) {
+		new _02_LogSearch().makeScreen();
+	}
+	
+	void makeScreen() {
+		jf = new JFrame();
+		
+		jp = new JPanel();
+		
+		b1 = new JButton();
+		b2 = new JButton();
+		b3 = new JButton();
+		b4 = new JButton();
+			
+		b1.addActionListener(this);
+		b2.addActionListener(this);
+		b3.addActionListener(this);
+		b4.addActionListener(this);
+		
+		b1.setText("Add Entry");
+		b2.setText("Search by ID");
+		b3.setText("View List");
+		b4.setText("Remove Entry");
+		
+		jp.add(b1);
+		jp.add(b2);
+		jp.add(b3);
+		jp.add(b4);
+		
+		jf.add(jp);
+		jf.setVisible(true);
+		jf.pack();
+		jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+	}
   /* 
 	 * Crate a HashMap of Integers for the keys and Strings for the values.
 	 * Create a GUI with three buttons. 
@@ -33,5 +82,64 @@ public class _02_LogSearch {
 	 * 				is not in the list. 
 	 *
 	 * */
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		int i = 0;
+		String s = "";
+		if(e.getSource() == b1) {
+		
+			i = Integer.parseInt(JOptionPane.showInputDialog("Put in a ID Number"));
+			s = JOptionPane.showInputDialog("Put in a Name");
+			
+			Hm.put(i, s);
+			
+			i = 0;
+			s = "";
+			
+		}else if(e.getSource() == b2) {
+			
+			i = Integer.parseInt(JOptionPane.showInputDialog("Put in a ID Number"));
+			
+			if(Hm.containsKey(i)) {
+				JOptionPane.showMessageDialog(null, "The value is: "+Hm.get(i));
+			}else {
+				JOptionPane.showMessageDialog(null, "This key doesn't exist");
+			}
+			
+			i = 0;
+			s = "";
+			
+		}else if(e.getSource() == b3) {
+			
+			ArrayList<Integer> Int = new ArrayList();
+			ArrayList<String> Str = new ArrayList();
+			
+			for(String ss : Hm.values()){  Str.add(ss); }			
+			for(Integer ii : Hm.keySet()){ Int.add(ii); }
+			
+			for(int j = 0; j < Hm.size(); j ++) {		
+				s = s + "\n ID: "+ Int.get(j) +"  Name: "+ Str.get(j);
+			}
+			
+			JOptionPane.showMessageDialog(null, s);
+			
+			i = 0;
+			s = "";
+			
+			
+		}else if(e.getSource() == b4) {
+			
+			i = Integer.parseInt(JOptionPane.showInputDialog("Put in a ID Number"));
+			
+			if(Hm.containsKey(i)) {
+				Hm.remove(i);
+				JOptionPane.showMessageDialog(null, "This key was removed");
+			}else {
+				JOptionPane.showMessageDialog(null, "This key doesn't exist");
+			}
+			
+		}
+	}
 	
 }
